@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 import numpy as np
 import joblib
 
@@ -49,12 +49,11 @@ def predict():
         return f"<h3>❌ Error: {str(e)}</h3>"
 
 
-# API endpoint (for mobile / global access)
 @app.route("/api/predict", methods=["POST"])
 def api_predict():
     data = request.get_json()
 
-    features = np.array([[
+    features = np.array([[ 
         data["N"],
         data["P"],
         data["K"],
@@ -74,5 +73,4 @@ def api_predict():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
-
+    app.run(host="0.0.0.0", port=5000, debug=True)
